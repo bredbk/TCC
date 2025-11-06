@@ -110,6 +110,17 @@ Análise crítica de viabilidade técnica:
 
 **Conclusão principal**: Para detecção de bola laranja, **detecção de cores é 5-10x mais rápida** que Haar Cascade, com consumo 4-8x menor de memória.
 
+#### 8. **[analise_pytorch_vs_tensorflow_esp32.md](analise_pytorch_vs_tensorflow_esp32.md)** 🤖 ⭐ **NOVO!**
+Análise comparativa de frameworks de ML:
+- **Comparação**: PyTorch vs TensorFlow Lite Micro para ESP32-S3
+- **Viabilidade técnica**: Suporte nativo, otimizações, ecossistema
+- **Rota alternativa**: ESP-DL com conversão PyTorch → ONNX → ESP-DL
+- **Recomendação técnica**: TensorFlow Lite Micro é a escolha clara
+- **Workflow recomendado**: Treinar → Converter → Deploy
+- **Alternativas**: Edge Impulse como plataforma integrada
+
+**Conclusão principal**: **TensorFlow Lite Micro vence em todos os aspectos** - suporte oficial, facilidade, documentação, ecossistema e performance. PyTorch não tem suporte nativo para microcontroladores.
+
 ---
 
 ## 🔑 Conceitos-Chave
