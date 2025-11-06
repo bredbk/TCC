@@ -468,6 +468,6 @@ void readAllIRSensors(int* values) {
 
 ---
 
-**Última atualização**: Novembro 2024  
+**Última atualização**: Novembro 2025  
 **Relevância**: Alta - Arquitetura similar, estratégias relevantes
 

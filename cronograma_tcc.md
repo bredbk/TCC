@@ -530,7 +530,7 @@ Use este checklist toda semana para se manter organizado:
 
 ---
 
-**Última atualização**: Novembro 2024  
+**Última atualização**: Novembro 2025  
 **Próxima revisão**: Início de cada mês
 
 **Lembre-se**: Este cronograma é um guia. Adapte conforme necessário, mas mantenha o foco nos marcos críticos!

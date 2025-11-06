@@ -312,7 +312,7 @@ Se você utilizar este trabalho, por favor cite:
 
 ---
 
-**Última atualização**: Novembro de 2024  
+**Última atualização**: Novembro de 2025  
 **Versão**: 1.0
 
 🤖 **Boa sorte no desenvolvimento do seu TCC!** 🚀

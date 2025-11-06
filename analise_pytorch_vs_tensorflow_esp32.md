@@ -546,7 +546,7 @@ esp_dl_infer(&model, input_data, output_data);
 
 ---
 
-**Última atualização**: Novembro 2024  
+**Última atualização**: Novembro 2025  
 **Relevância**: Alta - Decisão técnica crítica para seu TCC  
 **Recomendação**: **TensorFlow Lite Micro** é a escolha clara e definitiva
 

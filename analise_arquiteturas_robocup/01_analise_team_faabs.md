@@ -458,6 +458,6 @@ Coordenadas          Motores, Sensores
 
 ---
 
-**Última atualização**: Novembro 2024  
+**Última atualização**: Novembro 2025  
 **Relevância**: Alta - Arquitetura similar, mas com hardware mais caro
 

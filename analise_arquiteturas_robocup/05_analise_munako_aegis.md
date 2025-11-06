@@ -408,6 +408,6 @@ void loop() {
 
 ---
 
-**Última atualização**: Novembro 2024  
+**Última atualização**: Novembro 2025  
 **Relevância**: **MUITO ALTA** - Prova real de uso de ESP32 em robótica de competição!
 

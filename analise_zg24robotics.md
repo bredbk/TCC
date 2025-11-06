@@ -313,6 +313,6 @@ O projeto ZG24Robotics demonstra que:
 
 ---
 
-**Última atualização**: Novembro 2024  
+**Última atualização**: Novembro 2025  
 **Fonte**: Pôster técnico ZG24Robotics (RoboCup Junior)
 

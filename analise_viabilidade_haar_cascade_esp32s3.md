@@ -616,6 +616,6 @@ void detectWithHaarCascade(camera_fb_t *fb, Rect *detections, int *count) {
 
 ---
 
-**Última atualização**: Novembro 2024  
+**Última atualização**: Novembro 2025  
 **Relevância**: Alta - Análise direta de viabilidade técnica para seu TCC
 

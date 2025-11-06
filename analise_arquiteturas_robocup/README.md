@@ -285,7 +285,7 @@ Este diretório contém análises detalhadas de arquiteturas de robôs de compet
 
 ---
 
-**Última atualização**: Novembro 2024  
+**Última atualização**: Novembro 2025  
 **Total de análises**: 6  
 **Foco**: ESP32 como alternativa de baixo custo para robótica autônoma
 
