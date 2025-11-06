@@ -8,7 +8,7 @@ BRENDON SOUSA LIMA
 
 
 
-SISTEMA DE VISÃO COMPUTACIONAL EMBARCADO PARA ROBÓTICA AUTÔNOMA DE BAIXO CUSTO
+MÓDULO DE VISÃO COMPUTACIONAL EMBARCADO PARA ROBÓTICA AUTÔNOMA: ANÁLISE COMPARATIVA DE PLATAFORMAS E DESENVOLVIMENTO DE PROTÓTIPO DE BAIXO CUSTO
 
 
 
@@ -28,7 +28,7 @@ BRENDON SOUSA LIMA
 
 
 
-SISTEMA DE VISÃO COMPUTACIONAL EMBARCADO PARA ROBÓTICA AUTÔNOMA DE BAIXO CUSTO
+MÓDULO DE VISÃO COMPUTACIONAL EMBARCADO PARA ROBÓTICA AUTÔNOMA: ANÁLISE COMPARATIVA DE PLATAFORMAS E DESENVOLVIMENTO DE PROTÓTIPO DE BAIXO CUSTO
 
 
 
@@ -56,10 +56,11 @@ Vitória da Conquista
 2. [CONCEITOS TEÓRICOS / TRABALHOS RELACIONADOS](#2-conceitos-teóricos--trabalhos-relacionados) .......... 12
    - 2.1 [TinyML (Tiny Machine Learning)](#21-tinyml-tiny-machine-learning) .......... 12
    - 2.2 [Edge AI](#22-edge-ai) .......... 13
-   - 2.3 [ESP32-S3](#23-esp32-s3) .......... 14
-   - 2.4 [Visão Computacional Embarcada](#24-visão-computacional-embarcada) .......... 15
-   - 2.5 [RoboCup e Futebol de Robôs](#25-robocup-e-futebol-de-robôs) .......... 16
-   - 2.6 [Trabalhos Relacionados](#26-trabalhos-relacionados) .......... 17
+   - 2.3 [Análise Comparativa de Plataformas de Hardware](#23-análise-comparativa-de-plataformas-de-hardware) .......... 14
+   - 2.4 [Interface de Saída e Representação do Campo de Visão](#24-interface-de-saída-e-representação-do-campo-de-visão) .......... 18
+   - 2.5 [Visão Computacional Embarcada](#25-visão-computacional-embarcada) .......... 19
+   - 2.6 [RoboCup e Futebol de Robôs](#26-robocup-e-futebol-de-robôs) .......... 20
+   - 2.7 [Trabalhos Relacionados](#27-trabalhos-relacionados) .......... 21
 3. [CRONOGRAMA](#3-cronograma) .......... 19
 4. [REFERÊNCIAS](#4-referências) .......... 20
 [APÊNDICES](#apêndices) .......... 21
@@ -72,11 +73,11 @@ A inteligência artificial tem se expandido para além dos servidores de alta po
 
 Nesse contexto, surge a disciplina do Tiny Machine Learning (TinyML), uma nova fronteira da inteligência artificial focada em implementar modelos de aprendizado de máquina em dispositivos diminutos, como microcontroladores (MCUs), que possuem apenas algumas centenas de kilobytes de memória. A ascensão do TinyML não é apenas um avanço tecnológico, mas uma resposta a um imperativo prático: com bilhões de dispositivos IoT gerando volumes massivos de dados, a dependência de servidores na nuvem para inferência se torna um gargalo de desempenho, latência e segurança (LIN et al., 2020).
 
-A robótica autônoma, especialmente em ambientes dinâmicos e imprevisíveis como um campo de futebol, representa um desafio complexo e relevante no avanço da inteligência artificial e da mecatrônica. A capacidade de um robô de detectar, rastrear e interagir com objetos em movimento, como uma bola, é central para o desenvolvimento de sistemas de percepção visual e controle de movimento em tempo real.
+A robótica autônoma, especialmente em ambientes dinâmicos e imprevisíveis como um campo de futebol, representa um desafio complexo e relevante no avanço da inteligência artificial e da mecatrônica. O desenvolvimento de sistemas de percepção visual é fundamental para permitir que robôs detectem, rastreiem e interajam com objetos em movimento em tempo real.
 
-Uma distinção fundamental na pesquisa em robótica de futebol é a arquitetura do sistema de visão. Ligas tradicionais como a RoboCup Small Size League (SSL) utilizam frequentemente um sistema de visão centralizado, externo ao campo, que processa imagens de várias câmeras e transmite os dados de posição dos objetos aos robôs. Essa abordagem oferece uma visão global e completa do ambiente de jogo (BROWNING et al., 2019).
+Este trabalho foca especificamente no **módulo de visão computacional embarcado**, que constitui a base fundamental para futuros desenvolvimentos em robótica autônoma. O módulo desenvolvido será responsável por capturar imagens do ambiente, processá-las localmente utilizando TinyML, e fornecer como saída as coordenadas (x, y) dos objetos detectados, que posteriormente serão utilizadas por um sistema de controle (Arduino ou similar) para comandar a movimentação do robô.
 
-Em contraste, a presente proposta explora uma arquitetura de visão embarcada e on-board, onde o próprio robô é responsável por sua percepção. Essa abordagem enfrenta desafios mais significativos e, de certa forma, mais realistas: a visão embarcada limita o campo de visão do robô, e o sistema de percepção deve lidar com movimentos bruscos, tremores e iluminação variável do ambiente. Nesse cenário, a baixa latência proporcionada pelo TinyML e pelo processamento on-chip se torna não apenas uma vantagem, mas um requisito fundamental para a viabilidade do projeto, permitindo que o robô reaja a eventos em tempo real sem o atraso da comunicação externa.
+**Importante**: Este trabalho não inclui a montagem física completa do robô. O foco está no desenvolvimento, análise comparativa e validação do módulo de visão computacional como etapa inicial e fundamental da pesquisa em robótica autônoma.
 
 ## 1.1 Justificativa
 
@@ -132,50 +133,69 @@ Por outro lado, sistemas de visão embarcada em robôs móveis geralmente utiliz
 
 **Questão Central de Pesquisa:**
 
-Como desenvolver um sistema de visão computacional embarcado que opere em tempo real (latência < 100 ms) em um microcontrolador de baixo custo (ESP32-S3, ~R$ 60) com recursos limitados (512 KB RAM, 240 MHz), capaz de detectar e rastrear objetos em ambientes dinâmicos para aplicações de robótica autônoma?
+Qual plataforma de hardware oferece o melhor custo-benefício para implementação de um módulo de visão computacional embarcado baseado em TinyML, capaz de detectar objetos em tempo real e fornecer coordenadas (x, y) para integração com sistemas de controle de robótica autônoma, considerando restrições de custo, viabilidade técnica e redução de custos?
 
 **Questões Secundárias:**
 
-1. Como otimizar modelos de deep learning para operar dentro das restrições de memória e processamento de um microcontrolador?
-2. Quais técnicas de quantização e pruning são mais eficazes para manter acurácia aceitável com redução drástica de recursos?
-3. Como projetar um pipeline de visão computacional eficiente que minimize latência sem sacrificar precisão?
-4. Qual o trade-off entre complexidade do modelo, acurácia, latência e consumo energético no ESP32-S3?
-5. Como a abordagem de visão embarcada se compara com sistemas centralizados em termos de desempenho, custo e viabilidade prática?
+1. Quais são as plataformas de hardware disponíveis no mercado adequadas para visão computacional embarcada e como elas se comparam em termos de custo, desempenho e viabilidade técnica?
+
+2. Como otimizar modelos de deep learning para operar dentro das restrições de memória e processamento de microcontroladores de baixo custo, mantendo acurácia aceitável?
+
+3. Quais técnicas de quantização, pruning e co-design são mais eficazes para reduzir custos sem comprometer significativamente o desempenho?
+
+4. Como projetar uma interface de saída padronizada que forneça coordenadas (x, y) dos objetos detectados de forma eficiente para integração com sistemas de controle (Arduino)?
+
+5. Qual o trade-off entre complexidade do modelo, acurácia, latência e consumo energético em diferentes plataformas de hardware?
+
+6. Como treinar e otimizar modelos de detecção de objetos especificamente para operação em dispositivos embarcados de recursos limitados?
 
 ## 1.3 Objetivos
 
 ### 1.3.1 Geral
 
-Desenvolver e avaliar um sistema de visão computacional embarcado de baixo custo baseado em TinyML para robótica autônoma, utilizando o microcontrolador ESP32-S3, aplicado ao contexto de detecção e rastreamento de objetos em tempo real para futebol de robôs.
+Desenvolver, comparar e avaliar um módulo de visão computacional embarcado de baixo custo baseado em TinyML, realizando análise comparativa de diferentes plataformas de hardware disponíveis no mercado, com foco em viabilidade técnica e redução de custos, capaz de detectar objetos e fornecer coordenadas (x, y) para integração com sistemas de controle de robótica autônoma.
 
 ### 1.3.2 Específicos
 
 1. **Realizar revisão bibliográfica sistemática** sobre TinyML, Edge AI, visão computacional embarcada, arquiteturas de redes neurais eficientes e aplicações em robótica autônoma, identificando o estado da arte e lacunas na literatura.
 
-2. **Coletar e anotar dataset customizado** de imagens de bolas em diferentes condições de iluminação, distância e oclusão, adequado para treinamento de modelos de detecção de objetos.
+2. **Realizar análise comparativa detalhada** de diferentes plataformas de hardware disponíveis no mercado para visão computacional embarcada, incluindo:
+   - Microcontroladores (ESP32-S3, STM32, Raspberry Pi Pico)
+   - Sistemas embarcados (Raspberry Pi, Jetson Nano, Coral Dev Board)
+   - Critérios: custo, memória, processamento, interface de câmera, consumo energético, suporte a ML
 
-3. **Desenvolver e otimizar modelo de machine learning** para detecção de objetos, aplicando técnicas de quantização, pruning e neural architecture search para operação no ESP32-S3.
+3. **Avaliar viabilidade técnica e econômica** de cada plataforma para aplicação em robótica autônoma, considerando trade-offs entre desempenho e custo.
 
-4. **Implementar pipeline completo de visão computacional** no microcontrolador, incluindo captura de imagem, pré-processamento, inferência do modelo TinyML e pós-processamento, otimizado para tempo real.
+4. **Identificar estratégias de redução de custos** sem comprometer significativamente o desempenho, analisando alternativas de hardware, otimizações de software e técnicas de co-design.
 
-5. **Integrar sistema de visão com controle de movimento** do robô, desenvolvendo algoritmo de navegação autônoma baseado em visão que permita ao robô seguir e interceptar a bola.
+5. **Coletar e anotar dataset customizado** de imagens representando visão de campo de futebol com objetos (bolas) em diferentes condições de iluminação, distância, ângulos e oclusões, adequado para treinamento de modelos de detecção.
 
-6. **Avaliar desempenho quantitativo do sistema** através de métricas objetivas:
+6. **Treinar e otimizar modelo de machine learning** para detecção de objetos, aplicando técnicas de quantização, pruning e otimização de arquitetura para operação em plataformas de recursos limitados.
+
+7. **Implementar módulo de visão computacional** na plataforma selecionada, incluindo:
+   - Captura de imagem via câmera
+   - Pré-processamento (redimensionamento, normalização)
+   - Inferência do modelo TinyML
+   - Pós-processamento e extração de coordenadas
+   - Interface de comunicação (serial/UART) para envio de coordenadas (x, y)
+
+8. **Desenvolver interface de saída padronizada** que forneça coordenadas (x, y) dos objetos detectados no campo de visão, formatadas para integração com Arduino ou outros sistemas de controle, representando a visão do campo com sistema de coordenadas definido.
+
+9. **Avaliar desempenho quantitativo do módulo** através de métricas objetivas:
    - Precisão, recall e F1-score da detecção
-   - Latência média, mínima e máxima do pipeline
+   - Latência média, mínima e máxima do pipeline completo
    - Taxa de quadros por segundo (FPS)
    - Consumo de memória RAM e Flash
-   - Autonomia energética (tempo de operação com bateria)
+   - Precisão das coordenadas fornecidas (x, y)
+   - Consumo energético
 
-7. **Realizar testes qualitativos** avaliando robustez do sistema em diferentes cenários:
-   - Variações de iluminação (ambiente interno, externo, diferentes intensidades)
-   - Diferentes distâncias da bola (0.5m a 3m)
-   - Presença de oclusões e múltiplos objetos
-   - Movimento do robô (vibrações, deslocamento rápido)
+10. **Realizar testes qualitativos** avaliando robustez do módulo em diferentes cenários:
+    - Variações de iluminação (ambiente interno, externo, diferentes intensidades)
+    - Diferentes distâncias do objeto (0.5m a 3m)
+    - Presença de oclusões e múltiplos objetos
+    - Diferentes ângulos de visão
 
-8. **Comparar abordagem proposta** com sistemas de visão centralizados e outras soluções embarcadas, identificando vantagens, limitações e trade-offs de cada arquitetura.
-
-9. **Documentar solução de forma reproduzível**, incluindo código-fonte, datasets, modelos treinados e instruções detalhadas, permitindo replicação e extensão do trabalho por outros pesquisadores.
+11. **Documentar solução de forma reproduzível**, incluindo código-fonte, datasets, modelos treinados, especificações de hardware e instruções detalhadas, permitindo replicação e extensão do trabalho por outros pesquisadores.
 
 ## 1.4 Metodologia
 
@@ -285,38 +305,55 @@ O desenvolvimento deste trabalho será dividido em seis etapas principais, distr
 
 **Produto**: Modelo otimizado em formato .tflite
 
-#### Etapa 5: Implementação no ESP32-S3 e Integração (Meses 9-10)
+#### Etapa 5: Implementação do Módulo de Visão (Meses 9-10)
 
-**Objetivo**: Implementar sistema completo no hardware embarcado.
+**Objetivo**: Implementar módulo completo de visão computacional no hardware embarcado com interface de saída padronizada.
 
 **Atividades**:
 
 1. **Setup de hardware** (Mês 9, semana 1):
-   - Montagem do circuito (ESP32-S3 + câmera OV2640)
+   - Montagem do módulo (ESP32-S3 + câmera OV2640)
    - Configuração de pinos e interfaces
    - Testes de captura de imagem
    - Verificação de funcionamento básico
+   - Calibração da câmera (correção de distorção, ajuste de exposição)
 
 2. **Desenvolvimento do firmware** (Mês 9, semanas 2-4):
    - Implementação do pipeline de visão:
-     * Módulo de captura de imagem
-     * Pré-processamento (redimensionamento, normalização)
+     * Módulo de captura de imagem via interface DVP
+     * Pré-processamento (redimensionamento, normalização, conversão de espaço de cor)
      * Inferência usando TFLite Micro
-     * Pós-processamento (extração de bounding box, filtros)
-   - Otimização de código para performance
+     * Pós-processamento (extração de bounding box, filtros de confiança, non-maximum suppression)
+   - Otimização de código para performance e memória
    - Debug e correções
 
-3. **Integração com robô** (Mês 10):
-   - Montagem do chassis robótico
-   - Conexão de motores e drivers
-   - Implementação de controle de movimento
-   - Desenvolvimento de lógica de navegação baseada em visão
-   - Calibração de parâmetros (velocidade, direção, sensibilidade)
-   - Testes integrados
+3. **Desenvolvimento da interface de saída** (Mês 10):
+   - **Definição do sistema de coordenadas**: 
+     * Origem no centro da imagem ou canto superior esquerdo
+     * Eixos X (horizontal) e Y (vertical) normalizados ou em pixels
+     * Sistema de coordenadas relativo ao campo de visão da câmera
+   
+   - **Implementação do protocolo de comunicação**:
+     * Interface serial/UART para comunicação com Arduino ou sistema de controle
+     * Formato de mensagem padronizado: `OBJ,x,y,confiança\n` ou JSON
+     * Taxa de transmissão configurável (ex: 115200 baud)
+     * Tratamento de múltiplos objetos detectados
+   
+   - **Representação da visão do campo**:
+     * Mapeamento da imagem capturada para coordenadas do campo
+     * Calibração de perspectiva (se necessário)
+     * Fornecimento de coordenadas (x, y) dos objetos detectados
+     * Informações adicionais: confiança, tamanho do objeto, timestamp
+   
+   - **Testes de interface**:
+     * Comunicação com Arduino simulado
+     * Validação do formato de dados
+     * Testes de latência de transmissão
+     * Verificação de precisão das coordenadas
 
-**Ferramentas**: ESP-IDF ou Arduino IDE, PlatformIO, TensorFlow Lite Micro
+**Ferramentas**: ESP-IDF ou Arduino IDE, PlatformIO, TensorFlow Lite Micro, Arduino IDE (para testes de interface)
 
-**Produto**: Sistema embarcado completo e funcional
+**Produto**: Módulo de visão computacional completo com interface de saída padronizada para coordenadas (x, y)
 
 #### Etapa 6: Testes, Avaliação e Documentação (Meses 11-12)
 
@@ -353,14 +390,13 @@ O desenvolvimento deste trabalho será dividido em seis etapas principais, distr
 
 ### Materiais e Recursos
 
-**Hardware necessário** (custo total estimado: R$ 400,00):
-- ESP32-S3 DevKit (2 unidades): R$ 120,00
+**Hardware necessário** (custo total estimado: R$ 150,00):
+- ESP32-S3 DevKit (2 unidades para testes): R$ 120,00
 - Câmera OV2640 (2 unidades): R$ 50,00
-- Chassis robótico com rodas: R$ 80,00
-- Motores DC com encoders (2 unidades): R$ 40,00
-- Driver de motores L298N: R$ 15,00
-- Bateria LiPo 7.4V 2200mAh: R$ 50,00
-- Componentes diversos (jumpers, protoboard, etc.): R$ 45,00
+- Componentes diversos (jumpers, protoboard, reguladores, conectores): R$ 30,00
+- Arduino Uno ou similar (para testes de interface de comunicação): R$ 80,00 (opcional, pode usar simulador)
+
+**Nota**: A montagem física do robô não faz parte deste trabalho. O hardware listado é apenas para o módulo de visão e testes de interface.
 
 **Software** (gratuito):
 - ESP-IDF ou Arduino IDE
@@ -450,9 +486,222 @@ Edge AI envolve trade-offs fundamentais:
 - **Autonomia vs Complexidade do algoritmo**
 - **Custo vs Desempenho**
 
-## 2.3 ESP32-S3
+## 2.3 Análise Comparativa de Plataformas de Hardware
 
-O ESP32-S3 é um microcontrolador System-on-Chip (SoC) da Espressif Systems, sucessor do popular ESP32, com melhorias específicas para aplicações de IA e processamento de sinais (ESPRESSIF, 2021).
+Esta seção apresenta uma análise comparativa detalhada das principais plataformas de hardware disponíveis no mercado para implementação de visão computacional embarcada, considerando critérios de custo, desempenho, viabilidade técnica e adequação para aplicações de robótica autônoma.
+
+### 2.3.1 Microcontroladores (MCUs)
+
+#### ESP32-S3
+
+**Fabricante**: Espressif Systems  
+**Custo aproximado**: R$ 60,00 - R$ 80,00  
+**Processador**: Dual-core Xtensa LX7 @ 240 MHz  
+**Memória RAM**: 512 KB SRAM interna + suporte a PSRAM externa (até 8 MB)  
+**Memória Flash**: 4-16 MB (externa)  
+**Interface de Câmera**: DVP (Digital Video Port) dedicada, 8/16 bits, até 40 MHz  
+**Unidade de Ponto Flutuante**: Não (operações float são lentas)  
+**Conectividade**: WiFi 802.11 b/g/n, Bluetooth 5.0 LE  
+**Consumo energético**: ~80-240 mA (ativo), ~10 µA (deep sleep)  
+**Frameworks ML**: TensorFlow Lite Micro, Edge Impulse  
+**Vantagens**:
+- Interface de câmera dedicada (DVP) - raro em MCUs
+- Custo muito baixo
+- Boa comunidade e documentação
+- WiFi integrado para debug/monitoramento
+- Aceleradores de hardware para processamento de imagem
+
+**Desvantagens**:
+- Memória RAM limitada (512 KB)
+- Sem FPU (float32 muito lento)
+- Processamento limitado para modelos complexos
+
+**Viabilidade para visão embarcada**: ⭐⭐⭐⭐ (4/5) - Excelente custo-benefício
+
+#### STM32F4 Series (ex: STM32F407)
+
+**Fabricante**: STMicroelectronics  
+**Custo aproximado**: R$ 80,00 - R$ 120,00  
+**Processador**: ARM Cortex-M4 @ 168 MHz  
+**Memória RAM**: 192 KB SRAM  
+**Memória Flash**: 1-2 MB  
+**Interface de Câmera**: DCMI (Digital Camera Interface) dedicada  
+**Unidade de Ponto Flutuante**: Sim (FPU single precision)  
+**Conectividade**: Requer módulos externos  
+**Consumo energético**: ~100-200 mA (ativo)  
+**Frameworks ML**: TensorFlow Lite Micro, STM32Cube.AI  
+**Vantagens**:
+- FPU nativa (float32 rápido)
+- Interface de câmera dedicada (DCMI)
+- Boa performance para operações matemáticas
+- STM32Cube.AI otimizado para STM32
+
+**Desvantagens**:
+- Custo maior que ESP32-S3
+- Menos memória RAM que ESP32-S3
+- Comunidade menor para ML
+- Requer módulos externos para WiFi
+
+**Viabilidade para visão embarcada**: ⭐⭐⭐ (3/5) - Boa, mas mais cara
+
+#### Raspberry Pi Pico / RP2040
+
+**Fabricante**: Raspberry Pi Foundation  
+**Custo aproximado**: R$ 40,00 - R$ 60,00  
+**Processador**: Dual-core ARM Cortex-M0+ @ 133 MHz  
+**Memória RAM**: 264 KB SRAM  
+**Memória Flash**: 2-16 MB (externa)  
+**Interface de Câmera**: Não (requer comunicação SPI/I2C)  
+**Unidade de Ponto Flutuante**: Não  
+**Conectividade**: Requer módulos externos  
+**Consumo energético**: ~50-100 mA (ativo)  
+**Frameworks ML**: TensorFlow Lite Micro (suporte limitado)  
+**Vantagens**:
+- Custo muito baixo
+- Boa documentação
+- Comunidade ativa
+
+**Desvantagens**:
+- Sem interface de câmera dedicada (SPI/I2C muito lento)
+- Memória RAM muito limitada
+- Sem FPU
+- Suporte ML limitado
+
+**Viabilidade para visão embarcada**: ⭐⭐ (2/5) - Limitada pela falta de interface de câmera
+
+### 2.3.2 Sistemas Embarcados (SBCs - Single Board Computers)
+
+#### Raspberry Pi 4 Model B
+
+**Fabricante**: Raspberry Pi Foundation  
+**Custo aproximado**: R$ 500,00 - R$ 600,00  
+**Processador**: Quad-core ARM Cortex-A72 @ 1.5 GHz  
+**Memória RAM**: 2-8 GB LPDDR4  
+**Memória Flash**: MicroSD (externa)  
+**Interface de Câmera**: CSI (Camera Serial Interface) dedicada  
+**Unidade de Ponto Flutuante**: Sim (NEON SIMD)  
+**Conectividade**: WiFi 802.11ac, Bluetooth 5.0, Gigabit Ethernet  
+**Consumo energético**: ~2-5 W (1-2.5 A @ 5V)  
+**Frameworks ML**: TensorFlow Lite, PyTorch, OpenCV  
+**Vantagens**:
+- Muito mais poder de processamento
+- Grande quantidade de RAM
+- Suporte completo a frameworks ML
+- Comunidade enorme
+- GPU VideoCore VI para aceleração
+
+**Desvantagens**:
+- Custo 8-10x maior que ESP32-S3
+- Consumo energético alto (requer fonte dedicada)
+- Não é um MCU (sistema operacional Linux)
+- Overhead do sistema operacional
+
+**Viabilidade para visão embarcada**: ⭐⭐⭐⭐⭐ (5/5) - Excelente, mas caro e consome muita energia
+
+#### NVIDIA Jetson Nano
+
+**Fabricante**: NVIDIA  
+**Custo aproximado**: R$ 1.000,00 - R$ 1.500,00  
+**Processador**: Quad-core ARM Cortex-A57 @ 1.43 GHz + GPU NVIDIA Maxwell (128 CUDA cores)  
+**Memória RAM**: 4 GB LPDDR4  
+**Memória Flash**: MicroSD (externa)  
+**Interface de Câmera**: CSI dedicada  
+**Unidade de Ponto Flutuante**: Sim + GPU para aceleração  
+**Conectividade**: WiFi 802.11ac, Bluetooth 4.2, Gigabit Ethernet  
+**Consumo energético**: ~5-10 W (1-2 A @ 5V)  
+**Frameworks ML**: TensorFlow, PyTorch, TensorRT (otimizado para NVIDIA)  
+**Vantagens**:
+- GPU dedicada para ML (muito rápido)
+- TensorRT para otimização
+- Suporte completo a deep learning
+- Performance excepcional
+
+**Desvantagens**:
+- Custo muito alto (20x ESP32-S3)
+- Consumo energético muito alto
+- Requer fonte dedicada robusta
+- Overkill para aplicações simples
+
+**Viabilidade para visão embarcada**: ⭐⭐⭐⭐⭐ (5/5) - Excelente para aplicações complexas, mas proibitivo em custo
+
+#### Google Coral Dev Board / Edge TPU
+
+**Fabricante**: Google  
+**Custo aproximado**: R$ 800,00 - R$ 1.200,00  
+**Processador**: Quad-core ARM Cortex-A53 + Edge TPU (ASIC para ML)  
+**Memória RAM**: 1 GB LPDDR4  
+**Memória Flash**: 8 GB eMMC  
+**Interface de Câmera**: CSI dedicada  
+**Unidade de Ponto Flutuante**: Sim + Edge TPU  
+**Conectividade**: WiFi 802.11ac, Bluetooth 4.2, Gigabit Ethernet  
+**Consumo energético**: ~2-5 W  
+**Frameworks ML**: TensorFlow Lite (otimizado para Edge TPU)  
+**Vantagens**:
+- Edge TPU: ASIC dedicado para inferência ML (muito rápido)
+- Baixo consumo para o desempenho
+- Otimizado especificamente para ML
+
+**Desvantagens**:
+- Custo alto
+- Requer modelos quantizados específicos
+- Menos flexível que soluções genéricas
+
+**Viabilidade para visão embarcada**: ⭐⭐⭐⭐ (4/5) - Excelente para ML, mas caro
+
+### 2.3.3 Tabela Comparativa Resumida
+
+| Plataforma | Custo (R$) | RAM | Clock | Interface Câmera | FPU | Consumo | ML Support | Score |
+|------------|-----------|-----|-------|-----------------|-----|---------|------------|-------|
+| **ESP32-S3** | 60-80 | 512 KB | 240 MHz | DVP (dedicada) | Não | ~80-240 mA | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
+| **STM32F4** | 80-120 | 192 KB | 168 MHz | DCMI (dedicada) | Sim | ~100-200 mA | ⭐⭐⭐ | ⭐⭐⭐ |
+| **RPi Pico** | 40-60 | 264 KB | 133 MHz | Não | Não | ~50-100 mA | ⭐⭐ | ⭐⭐ |
+| **RPi 4** | 500-600 | 2-8 GB | 1.5 GHz | CSI (dedicada) | Sim | ~2-5 W | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+| **Jetson Nano** | 1000-1500 | 4 GB | 1.43 GHz | CSI (dedicada) | Sim+GPU | ~5-10 W | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+| **Coral Dev** | 800-1200 | 1 GB | + Edge TPU | CSI (dedicada) | Sim+TPU | ~2-5 W | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
+
+### 2.3.4 Análise de Viabilidade e Trade-offs
+
+#### Para Aplicação em Robótica Autônoma de Baixo Custo
+
+**Critérios de seleção prioritários**:
+1. **Custo** (< R$ 200 para módulo completo)
+2. **Interface de câmera dedicada** (essencial para performance)
+3. **Consumo energético** (bateria deve durar > 30 min)
+4. **Suporte a ML** (frameworks disponíveis)
+5. **Memória suficiente** (para modelo + imagem)
+
+**Análise por categoria**:
+
+**Categoria 1: Microcontroladores de Baixo Custo**
+- **ESP32-S3**: ⭐⭐⭐⭐ Melhor opção - Interface DVP, custo baixo, boa comunidade
+- **STM32F4**: ⭐⭐⭐ Boa opção, mas mais cara e menos memória
+- **RPi Pico**: ⭐⭐ Não recomendado - falta interface de câmera dedicada
+
+**Categoria 2: Sistemas Embarcados**
+- **RPi 4**: ⭐⭐⭐⭐ Excelente desempenho, mas custo e consumo altos
+- **Jetson Nano**: ⭐⭐⭐ Overkill e muito caro para este projeto
+- **Coral Dev**: ⭐⭐⭐ Boa para ML, mas custo alto
+
+**Recomendação**: **ESP32-S3** oferece o melhor custo-benefício para este projeto, com interface de câmera dedicada e custo acessível.
+
+### 2.3.5 Estratégias de Redução de Custos
+
+1. **Seleção de hardware**: ESP32-S3 oferece melhor custo-benefício
+2. **Otimização de software**: Modelos menores = menos memória necessária
+3. **Quantização**: Reduz tamanho do modelo em 4x
+4. **Co-design**: Otimizar modelo para hardware específico
+5. **Alternativas de câmera**: Câmeras OV2640 são baratas (~R$ 25)
+6. **Produção em escala**: Custos podem cair 30-50% em volumes maiores
+
+**Custo total estimado do módulo**:
+- ESP32-S3: R$ 60
+- Câmera OV2640: R$ 25
+- Componentes (reguladores, conectores): R$ 15
+- **Total: R$ 100** (50% do orçamento de R$ 200)
+
+## 2.4 ESP32-S3 (Plataforma Selecionada)
+
+O ESP32-S3 foi selecionado como plataforma principal após análise comparativa, oferecendo o melhor equilíbrio entre custo, recursos e viabilidade técnica para este projeto.
 
 ### Especificações Técnicas Relevantes
 
@@ -498,7 +747,95 @@ O ESP32-S3 é um microcontrolador System-on-Chip (SoC) da Espressif Systems, suc
 
 O ESP32-S3 oferece o melhor compromisso custo-benefício para aplicações de visão computacional embarcada.
 
-## 2.4 Visão Computacional Embarcada
+## 2.4 Interface de Saída e Representação do Campo de Visão
+
+### 2.4.1 Sistema de Coordenadas
+
+O módulo de visão desenvolvido fornece como saída as coordenadas (x, y) dos objetos detectados no campo de visão da câmera. A definição de um sistema de coordenadas consistente é fundamental para a integração com sistemas de controle subsequentes.
+
+**Opções de sistema de coordenadas**:
+
+1. **Coordenadas em pixels**:
+   - Origem no canto superior esquerdo (0, 0)
+   - Eixo X: horizontal, de 0 a largura_da_imagem
+   - Eixo Y: vertical, de 0 a altura_da_imagem
+   - Vantagem: Direto, sem conversão
+   - Desvantagem: Depende da resolução da câmera
+
+2. **Coordenadas normalizadas**:
+   - Origem no centro da imagem (0, 0)
+   - Eixos X e Y de -1 a +1 (ou 0 a 1)
+   - Vantagem: Independente da resolução
+   - Desvantagem: Requer conversão para uso prático
+
+3. **Coordenadas relativas ao campo**:
+   - Mapeamento da imagem para coordenadas do campo de futebol
+   - Requer calibração de perspectiva
+   - Vantagem: Diretamente utilizável para navegação
+   - Desvantagem: Mais complexo, requer calibração
+
+**Recomendação para este trabalho**: Sistema híbrido - coordenadas em pixels com origem no centro da imagem, permitindo fácil conversão para qualquer sistema desejado.
+
+### 2.4.2 Protocolo de Comunicação
+
+A interface de comunicação entre o módulo de visão e o sistema de controle (Arduino ou similar) utiliza comunicação serial (UART) padrão, permitindo integração simples e universal.
+
+**Formato de mensagem proposto**:
+
+```
+OBJ,<x>,<y>,<confiança>,<largura>,<altura>\n
+```
+
+Onde:
+- `OBJ`: Identificador do objeto (ex: "BALL" para bola)
+- `<x>`: Coordenada X (pixels ou normalizada)
+- `<y>`: Coordenada Y (pixels ou normalizada)
+- `<confiança>`: Confiança da detecção (0.0 a 1.0)
+- `<largura>`: Largura do bounding box (opcional)
+- `<altura>`: Altura do bounding box (opcional)
+
+**Exemplo de mensagem**:
+```
+BALL,160,120,0.95,30,30\n
+```
+
+**Alternativa JSON** (mais flexível, mas maior overhead):
+```json
+{"objects": [{"type": "ball", "x": 160, "y": 120, "confidence": 0.95, "width": 30, "height": 30}]}
+```
+
+### 2.4.3 Representação da Visão do Campo
+
+O módulo fornece uma "visão" do campo através das coordenadas dos objetos detectados. Esta representação permite que o sistema de controle:
+
+1. **Localizar objetos**: Saber onde está a bola no campo de visão
+2. **Calcular direção**: Determinar para onde o robô deve se mover
+3. **Estimar distância**: Usar tamanho do objeto para estimar distância (se calibrado)
+4. **Rastrear movimento**: Comparar coordenadas entre frames para rastreamento
+
+**Informações fornecidas**:
+- Posição do objeto (x, y)
+- Confiança da detecção
+- Tamanho do objeto (se disponível)
+- Timestamp (opcional, para sincronização)
+
+**Integração com Arduino**:
+O Arduino recebe as coordenadas via Serial e pode:
+- Calcular ângulo de movimento necessário
+- Decidir velocidade e direção dos motores
+- Implementar lógica de navegação
+- Executar estratégias de jogo
+
+### 2.4.4 Calibração e Mapeamento
+
+Para aplicações futuras mais avançadas, o módulo pode incluir:
+- **Calibração de perspectiva**: Mapear coordenadas da imagem para coordenadas do campo real
+- **Correção de distorção**: Compensar distorção da lente da câmera
+- **Estimativa de distância**: Usar tamanho aparente do objeto para estimar distância real
+
+Estas funcionalidades avançadas podem ser implementadas em trabalhos futuros, após a validação do módulo básico.
+
+## 2.5 Visão Computacional Embarcada
 
 Visão computacional embarcada refere-se à implementação de algoritmos de processamento e análise de imagens em sistemas com recursos limitados, geralmente para aplicações de tempo real (BONARDI et al., 2015).
 
@@ -555,7 +892,7 @@ Desvantagens: Computacionalmente intensivas
 
 **Neural Architecture Search**: Busca automatizada pela arquitetura ideal para o hardware alvo
 
-## 2.5 RoboCup e Futebol de Robôs
+## 2.6 RoboCup e Futebol de Robôs
 
 A RoboCup é uma competição científica internacional estabelecida em 1997 com o objetivo audacioso: até 2050, um time de robôs humanoides autônomos deve ser capaz de vencer o time campeão da Copa do Mundo de Futebol da FIFA (KITANO et al., 1997).
 
@@ -610,7 +947,7 @@ Este trabalho alinha-se com a filosofia de visão embarcada, buscando autonomia 
 
 **Campo de visão limitado**: Câmera embarcada vê apenas uma fração do campo.
 
-## 2.6 Trabalhos Relacionados
+## 2.7 Trabalhos Relacionados
 
 ### MCUNet: Tiny Deep Learning on IoT Devices (LIN et al., 2020)
 

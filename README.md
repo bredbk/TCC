@@ -84,6 +84,32 @@ Explicações didáticas dos conceitos técnicos:
 - RoboCup
 - Métricas de avaliação
 
+#### 6. **[analise_arquiteturas_robocup/](analise_arquiteturas_robocup/)** 🏗️ ⭐ **NOVO!**
+Análises detalhadas de arquiteturas de robôs de competições RoboCup:
+- **6 análises completas** de times reais de competição
+- **Comparação de arquiteturas** (distribuída vs centralizada)
+- **Análise de viabilidade** do ESP32 como alternativa de baixo custo
+- **Prova real** de uso de ESP32 em robótica (Munako Aegis)
+- **Recomendações específicas** para seu TCC
+- **Análise de custos** detalhada (economia de 80-90%)
+
+**Arquivos principais**:
+- `README.md` - Índice completo e resumo executivo
+- `05_analise_munako_aegis.md` - ⭐ **MUITO RELEVANTE**: Prova real de ESP32
+- `03_analise_arquitetura_distribuida.md` - Análise de arquiteturas
+- Outras 4 análises de times de competição
+
+#### 7. **[analise_viabilidade_haar_cascade_esp32s3.md](analise_viabilidade_haar_cascade_esp32s3.md)** 🔍 ⭐ **NOVO!**
+Análise crítica de viabilidade técnica:
+- **Comparação**: Detecção de cores vs Haar Cascade no ESP32-S3
+- **Análise do artigo**: "Color Detection & Tracking with ESP32-CAM & OpenCV"
+- **Benchmarks de performance**: Latência, consumo de memória, FPS
+- **Recomendação técnica**: Detecção de cores otimizada é mais eficiente
+- **Código de exemplo**: Implementação otimizada para ESP32-S3
+- **Trade-offs detalhados**: Quando usar cada abordagem
+
+**Conclusão principal**: Para detecção de bola laranja, **detecção de cores é 5-10x mais rápida** que Haar Cascade, com consumo 4-8x menor de memória.
+
 ---
 
 ## 🔑 Conceitos-Chave
@@ -172,8 +198,9 @@ Siga o [cronograma_tcc.md](cronograma_tcc.md) para as próximas etapas!
 
 1. **[conceitos_tecnicos_explicados.md](conceitos_tecnicos_explicados.md)** - Para entender os conceitos básicos
 2. **[guia_pesquisa_tcc.md](guia_pesquisa_tcc.md)** - Para saber o que pesquisar
-3. **[papers_recomendados.md](papers_recomendados.md)** - Para encontrar referências
-4. **[cronograma_tcc.md](cronograma_tcc.md)** - Para se organizar no tempo
+3. **[analise_arquiteturas_robocup/README.md](analise_arquiteturas_robocup/README.md)** ⭐ **NOVO!** - Para entender arquiteturas e validar escolha do ESP32
+4. **[papers_recomendados.md](papers_recomendados.md)** - Para encontrar referências
+5. **[cronograma_tcc.md](cronograma_tcc.md)** - Para se organizar no tempo
 
 ---
 
@@ -229,6 +256,7 @@ Siga o [cronograma_tcc.md](cronograma_tcc.md) para as próximas etapas!
 
 ### Atualizações
 - **Novembro 2024**: Criação da estrutura inicial do projeto
+- **Novembro 2024**: Adição de 6 análises detalhadas de arquiteturas RoboCup
 - **Janeiro 2025**: Início do TCC I
 - **Junho 2025**: Conclusão do TCC I
 - **Dezembro 2025**: Defesa do TCC II
