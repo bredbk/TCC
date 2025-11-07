@@ -212,7 +212,7 @@ Este trabalho caracteriza-se como:
 - **Quanto aos procedimentos técnicos**: 
   - Pesquisa Bibliográfica (revisão sistemática da literatura)
   - Pesquisa Experimental (desenvolvimento e testes do protótipo)
-  - Estudo de Caso (aplicação no contexto de futebol de robôs)
+  - Estudo de Caso (aplicação no contexto de futebol de robôs autônomo)
 
 ### Procedimentos Metodológicos
 
