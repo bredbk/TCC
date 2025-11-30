@@ -79,6 +79,10 @@ Desenvolver um sistema embarcado de visão computacional capaz de detectar e loc
 
 6. Avaliar precisão, tempo de resposta (latência), taxa de quadros (FPS) e robustez do sistema em diferentes condições de iluminação e distâncias.
 
+7. Implementar sistema de medição de tempo de resposta em cada etapa do pipeline para análise comparativa.
+
+8. Realizar validação incremental: inicialmente com fotos de cima (bola isolada, depois bola e gols), e posteriormente com espelho convexo simulando visão do robô, medindo tempo de detecção em cada passo para comparação e busca do equilíbrio entre desempenho e acurácia.
+
 ### 1.4 **Metodologia** {#metodologia}
 
 #### **1.4.1 Classificação da Pesquisa**
@@ -121,23 +125,90 @@ Desenvolver um sistema embarcado de visão computacional capaz de detectar e loc
    * Taxa de transmissão: 115200 baud
    * Tratamento de casos sem detecção
 
-**Fase 5: Testes e Avaliação**
-10. Testes em campo real com bola em diferentes condições:
+**Fase 5: Validação Incremental e Testes**
+
+10. **Implementação do sistema de medição de tempo de resposta:**
+    * Timestamp no início da captura de imagem
+    * Timestamp após cada etapa do pipeline (captura, pré-processamento, segmentação, cálculo de coordenadas)
+    * Cálculo de tempo de resposta total e por etapa
+    * Logging de métricas de desempenho para análise comparativa
+
+11. **Validação Incremental - Fase 5.1: Testes Iniciais com Fotos de Cima (Bola Isolada)**
+    * Captura de fotos utilizando ESP32-S3 posicionado acima do campo (vista superior)
+    * Cenário: Bola laranja isolada no campo
+    * Quantidade: 50-100 fotos em diferentes posições e condições de iluminação
+    * Validação:
+      - Taxa de detecção positiva da bola
+      - Precisão das coordenadas (x, y) detectadas
+      - Tempo de resposta médio, mínimo e máximo
+      - Taxa de falsos positivos
+    * Critério de sucesso: Taxa de detecção > 90%, latência < 100ms
+    * Objetivo: Validar reconhecimento básico e detecção de pontos antes de avançar para cenários mais complexos
+
+12. **Validação Incremental - Fase 5.2: Testes com Fotos de Cima (Bola e Gols)**
+    * Captura de fotos utilizando ESP32-S3 posicionado acima do campo
+    * Cenário: Bola laranja + gols do time e do oponente visíveis simultaneamente
+    * Quantidade: 50-100 fotos variando posições relativas dos objetos
+    * Validação:
+      - Detecção simultânea de bola e gols
+      - Precisão das coordenadas de cada objeto detectado
+      - Distinção correta entre gol do time e gol oponente
+      - Tempo de resposta para detecção múltipla
+      - Taxa de detecção de cada classe (bola, gol_time, gol_oponente)
+    * Critério de sucesso: Taxa de detecção > 85% para todos os objetos, latência < 150ms
+    * Objetivo: Validar capacidade de detecção múltipla e distinção de objetos
+
+13. **Validação Incremental - Fase 5.3: Testes com Espelho Convexo (Visão do Robô)**
+    * Após validação positiva das fases anteriores, transição para visão real do robô
+    * Captura de fotos utilizando ESP32-S3 com espelho convexo
+    * Simulação da perspectiva do robô em campo
+    * Quantidade: 100-200 fotos em diferentes posições do robô
+    * Variações:
+      - Diferentes alturas do espelho
+      - Diferentes ângulos de inclinação do espelho
+      - Diferentes posições do robô no campo
+      - Diferentes condições de iluminação
+    * Validação:
+      - Taxa de detecção em perspectiva de campo
+      - Precisão das coordenadas com distorção do espelho convexo
+      - Tempo de resposta comparado com fases anteriores
+      - Robustez a variações de perspectiva
+      - Análise de trade-off desempenho vs acurácia
+    * Critério de sucesso: Taxa de detecção > 80%, latência < 200ms, acurácia de coordenadas aceitável
+    * Objetivo: Validar sistema em condições reais de operação do robô
+
+14. **Coleta de métricas quantitativas em todas as fases:**
+    * Tempo de captura de imagem
+    * Tempo de pré-processamento (conversão RGB → HSV)
+    * Tempo de segmentação e detecção
+    * Tempo de cálculo de coordenadas
+    * Tempo total de resposta (end-to-end)
+    * Taxa de quadros por segundo (FPS)
+    * Precisão da detecção (taxa de acerto)
+    * Precisão das coordenadas fornecidas (erro em cm)
+    * Consumo de memória durante processamento
+    * Comparação de desempenho entre diferentes perspectivas de visão
+
+15. **Otimização de Desempenho vs Acurácia:**
+    * Análise dos dados coletados nas 3 fases de validação
+    * Identificação de gargalos de performance
+    * Ajuste fino de parâmetros para equilíbrio:
+      - Resolução de imagem vs latência
+      - Complexidade do algoritmo vs acurácia
+      - Técnicas de otimização (downsampling, ROI) vs precisão
+    * Validação final do equilíbrio alcançado entre desempenho e acurácia
+    * Documentação das trade-offs identificadas
+    * Este projeto visa ter o equilíbrio entre desempenho e acurácia
+
+16. **Testes adicionais em campo real:**
     * Diferentes distâncias (0.5m a 3m)
     * Diferentes ângulos de visão
     * Diferentes condições de iluminação (ambiente interno, externo, variações)
     * Presença de objetos laranjas similares (teste de falsos positivos)
-
-11. Coleta de métricas quantitativas:
-    * Precisão da detecção (taxa de acerto)
-    * Latência média, mínima e máxima do pipeline completo
-    * Taxa de quadros por segundo (FPS)
-    * Precisão das coordenadas fornecidas (erro em cm)
-
-12. Análise de resultados e otimizações finais.
+    * Comportamento com oclusões parciais
 
 **Fase 6: Documentação**
-13. Redação da monografia com resultados, discussões e conclusões.  
+17. Redação da monografia com resultados, discussões e conclusões.  
  
 
 
@@ -184,6 +255,8 @@ O processamento de imagens em microcontroladores requer otimizações específic
 
 Cronograma de atividades para desenvolvimento do trabalho monográfico, incluindo o projeto (TCC I - 1º semestre) e a monografia (TCC II - 2º semestre) do ano letivo de 2025.
 
+*Nota: As referências "(Met. item X)" indicam a correspondência com os itens numerados da seção de Metodologia (1.4.2), facilitando o rastreamento entre o cronograma e os procedimentos metodológicos detalhados.*
+
 | Atividades | Jan | Fev | Mar | Abr | Mai | Jun | Jul | Ago | Set | Out | Nov | Dez |
 |-----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | **1. Levantar literatura** | X | X | X | | | | | | | | | |
@@ -193,19 +266,24 @@ Cronograma de atividades para desenvolvimento do trabalho monográfico, incluind
 | **5. Desenvolvimento do algoritmo** | | | | | | X | X | | | | | |
 | **6. Implementação da interface** | | | | | | | X | | | | | |
 | **7. Testes e calibração** | | | | | | | | X | X | | | |
-| **8. Coleta de dados experimentais** | | | | | | | | X | X | | | |
-| **9. Análise de resultados** | | | | | | | | | | X | | |
-| **10. Elaborar monografia (TCC II)** | | | | | | | | | | X | X | |
-| **11. Revisar texto** | | | | | | | | | | | X | |
-| **12. Preparar apresentação** | | | | | | | | | | | X | |
-| **13. Entregar TCC I** | | | | | | **✓** | | | | | | |
-| **14. Entregar TCC II** | | | | | | | | | | | **✓** | |
-| **15. Defesa da monografia** | | | | | | | | | | | | **✓** |
+| **8. Sistema de medição de tempo (Met. item 10)** | | | | | | | | X | | | | | |
+| **9. Validação incremental Fase 5.1 - Bola isolada (Met. item 11)** | | | | | | | | | X | | | | |
+| **10. Validação incremental Fase 5.2 - Bola e gols (Met. item 12)** | | | | | | | | | X | | | | |
+| **11. Validação incremental Fase 5.3 - Espelho convexo (Met. item 13)** | | | | | | | | | X | | | | |
+| **12. Coleta de métricas e otimização (Met. itens 14-15)** | | | | | | | | | X | X | | | |
+| **13. Testes adicionais em campo real (Met. item 16)** | | | | | | | | | | X | | | |
+| **14. Análise de resultados** | | | | | | | | | | X | | |
+| **15. Elaborar monografia (TCC II)** | | | | | | | | | | X | X | |
+| **16. Revisar texto** | | | | | | | | | | | X | |
+| **17. Preparar apresentação** | | | | | | | | | | | X | |
+| **18. Entregar TCC I** | | | | | | **✓** | | | | | | |
+| **19. Entregar TCC II** | | | | | | | | | | | **✓** | |
+| **20. Defesa da monografia** | | | | | | | | | | | | **✓** |
 
 **Marcos Críticos:**
-- **30/Jun/2025**: Entrega do Projeto (TCC I)
-- **30/Nov/2025**: Entrega da Monografia (TCC II)
-- **15/Dez/2025**: Defesa da Monografia
+- **30/Nov/2025**: Entrega do Projeto (TCC I)
+- **30/Jun/2026**: Entrega da Monografia (TCC II)
+- **15/Jul/2026**: Defesa da Monografia
 
 ## 4. **REFERÊNCIAS** {#referências}
 
