@@ -14,6 +14,14 @@ Vitória da Conquista, 2025
 
 ---
 
+## ABSTRACT
+
+This work proposes the development of a low-cost embedded computer vision module for autonomous robotics based on Tiny Machine Learning (TinyML). The research addresses the challenge of implementing real-time object detection systems in resource-constrained microcontrollers, focusing on the ESP32-S3 platform as a cost-effective alternative to high-end embedded systems. The proposed module will capture images through a camera, process them locally using optimized TinyML models, and provide object coordinates (x, y) for integration with autonomous robot control systems. The application context is autonomous robot soccer, where the system must detect and track objects such as balls and goals in real-time. The methodology includes a comparative analysis of different hardware platforms, development and optimization of machine learning models for microcontrollers, and incremental validation through three phases: initial tests with top-view images (isolated ball, then ball and goals), followed by tests with a convex mirror simulating the robot's field perspective. Performance metrics such as detection accuracy, latency, frames per second (FPS), and energy consumption will be evaluated, with the goal of achieving a balance between performance and accuracy. The expected contribution is to democratize access to autonomous robotics technology by providing a solution with a total cost of less than R$ 200, representing a 80-90% cost reduction compared to traditional solutions, while maintaining acceptable performance for educational and research applications in autonomous robotics.
+
+**Keywords**: Computer Vision, TinyML, Embedded Systems, Autonomous Robotics, ESP32-S3, Edge AI, RoboCup
+
+---
+
 ## SUMÁRIO
 
 1. [INTRODUÇÃO](#1-introdução)
@@ -40,6 +48,8 @@ Nesse contexto, surge a disciplina do Tiny Machine Learning (TinyML), uma nova f
 
 A robótica autônoma, especialmente em ambientes dinâmicos e imprevisíveis como um campo de futebol, representa um desafio complexo e relevante no avanço da inteligência artificial e da mecatrônica. O desenvolvimento de sistemas de percepção visual é fundamental para permitir que robôs detectem, rastreiem e interajam com objetos em movimento em tempo real.
 
+Este projeto propõe o desenvolvimento de um módulo de visão embarcada utilizando o microcontrolador ESP32-S3 e uma câmera OV2640. O diferencial inovador desta proposta reside na integração de um sistema óptico catadióptrico (uso de espelho convexo), que visa ampliar o campo de visão do robô para 360 graus (omnidirecional) com um único sensor, eliminando partes móveis e mantendo o custo do sistema reduzido.
+
 ### 1.2. Problema de Pesquisa
 
 A implementação de sistemas de visão computacional em robótica móvel autônoma tradicionalmente depende de uma de duas abordagens: sistemas de visão centralizados com alto poder computacional externo, ou sistemas embarcados em plataformas de alto custo (como placas com GPUs embarcadas, custando milhares de reais).
@@ -52,9 +62,11 @@ No contexto da RoboCup e competições similares de futebol de robôs, a categor
 
 Por outro lado, sistemas de visão embarcada em robôs móveis geralmente utilizam hardware especializado (como Jetson Nano, Raspberry Pi 4 com aceleradores, ou módulos Intel Movidius), que, embora mais poderosos, apresentam custos elevados (R$ 500 a R$ 2.000) e consumo energético significativo, inviáveis para robôs pequenos operados por bateria.
 
+Além disso, câmeras convencionais possuem campo de visão limitado (aproximadamente 60°), obrigando o robô a girar constantemente para encontrar a bola, o que reduz sua eficiência em jogo e aumenta o consumo energético.
+
 **Questão Central de Pesquisa:**
 
-Qual plataforma de hardware oferece o melhor custo-benefício para implementação de um módulo de visão computacional embarcado baseado em TinyML, capaz de detectar objetos em tempo real e fornecer coordenadas (x, y) para integração com sistemas de controle de robótica autônoma, considerando restrições de custo, viabilidade técnica e redução de custos?
+Qual a viabilidade técnica e o desempenho de um módulo de visão computacional embarcado de baixo custo (baseado em ESP32-S3 e óptica catadióptrica) para a detecção de objetos em tempo real em robôs móveis autônomos, considerando a comparação entre abordagens baseadas em segmentação de cor (HSV) e Machine Learning (TinyML)?
 
 ### 1.3. Delimitação do Tema
 
@@ -102,7 +114,11 @@ Soluções de baixo custo permitem que mais instituições de ensino, especialme
 - Incentivo à pesquisa e inovação
 - Desenvolvimento de competências técnicas avançadas
 
-### 2.4. Aplicabilidade Prática
+### 2.4. Inovação em Design
+
+A utilização de um espelho convexo (catadióptrico) para obter visão panorâmica em um sistema de baixo custo é uma alternativa criativa aos caros sensores LIDAR ou arranjos de múltiplas câmeras, reduzindo a complexidade mecânica e eletrônica do robô. Esta abordagem permite que o robô "veja" o gol adversário e a bola simultaneamente sem precisar girar o chassi, aumentando significativamente a eficiência operacional.
+
+### 2.5. Aplicabilidade Prática
 
 O sistema desenvolvido neste trabalho terá aplicações diretas em:
 - **Times de robótica educacionais**: Solução viável para competições estudantis
@@ -118,7 +134,7 @@ Além disso, todo o código e documentação serão disponibilizados de forma ab
 
 ### 3.1. Objetivo Geral
 
-Desenvolver, comparar e avaliar um módulo de visão computacional embarcado de baixo custo baseado em TinyML, realizando análise comparativa de diferentes plataformas de hardware disponíveis no mercado, com foco em viabilidade técnica e redução de custos, capaz de detectar objetos e fornecer coordenadas (x, y) para integração com sistemas de controle de robótica autônoma.
+Desenvolver um protótipo funcional de módulo de visão computacional embarcado utilizando o microcontrolador ESP32-S3 e óptica catadióptrica, realizando análise comparativa de diferentes plataformas de hardware disponíveis no mercado e comparando abordagens de detecção (segmentação por cor HSV e Machine Learning), capaz de detectar uma bola laranja em tempo real e fornecer suas coordenadas relativas para o controle de navegação de um robô autônomo.
 
 ### 3.2. Objetivos Específicos
 
@@ -135,18 +151,24 @@ Desenvolver, comparar e avaliar um módulo de visão computacional embarcado de 
 
 5. **Coletar e anotar dataset customizado** de imagens representando visão de campo de futebol com objetos (bolas) em diferentes condições de iluminação, distância, ângulos e oclusões, adequado para treinamento de modelos de detecção.
 
-6. **Treinar e otimizar modelo de machine learning** para detecção de objetos, aplicando técnicas de quantização, pruning e otimização de arquitetura para operação em plataformas de recursos limitados.
+6. **Implementar e comparar algoritmos de detecção de objetos** baseados em cor (espaço HSV) e Machine Learning (TensorFlow Lite Micro), avaliando latência e acurácia de cada abordagem para determinar a mais adequada ao contexto de aplicação.
 
-7. **Implementar módulo de visão computacional** na plataforma selecionada, incluindo:
+7. **Treinar e otimizar modelo de machine learning** para detecção de objetos, aplicando técnicas de quantização, pruning e otimização de arquitetura para operação em plataformas de recursos limitados.
+
+8. **Desenvolver suporte físico para acoplamento** da câmera OV2640 e do espelho convexo, garantindo alinhamento adequado do eixo óptico e estabilidade mecânica do sistema.
+
+9. **Criar algoritmo de mapeamento** para converter a imagem distorcida do espelho convexo em coordenadas cartesianas (X, Y) úteis para o robô, considerando as distorções radiais características de sistemas catadióptricos.
+
+10. **Implementar módulo de visão computacional** na plataforma selecionada, incluindo:
    - Captura de imagem via câmera
    - Pré-processamento (redimensionamento, normalização)
-   - Inferência do modelo TinyML
+   - Inferência do modelo TinyML ou processamento HSV
    - Pós-processamento e extração de coordenadas
    - Interface de comunicação (serial/UART) para envio de coordenadas (x, y)
 
-8. **Desenvolver interface de saída padronizada** que forneça coordenadas (x, y) dos objetos detectados no campo de visão, formatadas para integração com Arduino ou outros sistemas de controle, representando a visão do campo com sistema de coordenadas definido.
+11. **Desenvolver interface de saída padronizada** que forneça coordenadas (x, y) dos objetos detectados no campo de visão, formatadas para integração com Arduino ou outros sistemas de controle, representando a visão do campo com sistema de coordenadas definido.
 
-9. **Avaliar desempenho quantitativo do módulo** através de métricas objetivas:
+12. **Avaliar desempenho quantitativo do módulo** através de métricas objetivas:
    - Precisão, recall e F1-score da detecção
    - Latência média, mínima e máxima do pipeline completo
    - Taxa de quadros por segundo (FPS)
@@ -154,13 +176,12 @@ Desenvolver, comparar e avaliar um módulo de visão computacional embarcado de 
    - Precisão das coordenadas fornecidas (x, y)
    - Consumo energético
 
-10. **Realizar testes qualitativos** avaliando robustez do módulo em diferentes cenários:
-    - Variações de iluminação (ambiente interno, externo, diferentes intensidades)
-    - Diferentes distâncias do objeto (0.5m a 3m)
-    - Presença de oclusões e múltiplos objetos
-    - Diferentes ângulos de visão
+13. **Validar o sistema em etapas incrementais**:
+    - Visão estática superior (Bird's Eye View): testes com câmera apontada diretamente para baixo (sem espelho), validando algoritmo de detecção sem distorção óptica
+    - Visão catadióptrica (com espelho): testes com espelho convexo acoplado, validando algoritmo de mapeamento e detecção com distorção radial
+    - Testes qualitativos em diferentes cenários: variações de iluminação, distâncias (0.5m a 3m), oclusões e múltiplos objetos
 
-11. **Documentar solução de forma reproduzível**, incluindo código-fonte, datasets, modelos treinados, especificações de hardware e instruções detalhadas, permitindo replicação e extensão do trabalho por outros pesquisadores.
+14. **Documentar solução de forma reproduzível**, incluindo código-fonte, datasets, modelos treinados, especificações de hardware e instruções detalhadas, permitindo replicação e extensão do trabalho por outros pesquisadores.
 
 ---
 
@@ -257,7 +278,39 @@ Visão computacional embarcada refere-se à implementação de algoritmos de pro
 - **Knowledge Distillation**: Treinar modelo pequeno para imitar modelo grande
 - **Neural Architecture Search**: Busca automatizada pela arquitetura ideal para o hardware alvo
 
-### 4.5. Interface de Saída e Representação do Campo de Visão
+### 4.5. Segmentação por Cor no Espaço HSV
+
+Para aplicações de alta velocidade como o futebol de robôs, redes neurais profundas podem ser lentas em microcontroladores. A segmentação por cor no espaço HSV (Hue, Saturation, Value) é uma técnica eficiente que separa a cromaticidade (cor) da luminosidade (brilho), sendo mais robusta a variações de iluminação que o espaço RGB.
+
+**Vantagens do Espaço HSV:**
+
+- **Robustez à iluminação**: O componente de valor (V) separa a informação de brilho da cor, permitindo detecção consistente mesmo com variações de iluminação
+- **Baixo custo computacional**: Operações de thresholding em HSV são extremamente rápidas, adequadas para processamento em tempo real em microcontroladores
+- **Eficiência para objetos coloridos**: Como a bola oficial de competições possui uma cor laranja padronizada, esta técnica permite uma detecção rápida e robusta com baixo custo computacional
+
+**Aplicação no Contexto:**
+
+A segmentação HSV será implementada como alternativa ou complemento ao modelo de machine learning, permitindo comparação direta entre abordagens baseadas em cor e baseadas em ML quanto à latência e acurácia.
+
+### 4.6. Sistemas de Visão Omnidirecional (Catadióptricos)
+
+Sistemas catadióptricos combinam lentes (dióptricos) e espelhos (catóptricos). O uso de um espelho convexo alinhado ao eixo óptico da câmera permite capturar uma imagem de 360 graus em um único frame, eliminando a necessidade de partes móveis ou múltiplas câmeras.
+
+**Características:**
+
+- **Campo de visão ampliado**: Visão panorâmica completa do entorno do robô
+- **Eficiência operacional**: Permite que o robô "veja" o gol adversário e a bola simultaneamente sem precisar girar o chassi
+- **Custo reduzido**: Alternativa criativa aos caros sensores LIDAR ou arranjos de múltiplas câmeras
+- **Distorções radiais**: A imagem resultante sofre distorções características que requerem algoritmos de mapeamento para conversão em coordenadas cartesianas úteis
+
+**Desafios Técnicos:**
+
+- Calibração do sistema óptico
+- Algoritmos de correção de distorção radial
+- Mapeamento de coordenadas da imagem distorcida para coordenadas do campo real
+- Compensação de reflexões e artefatos ópticos
+
+### 4.7. Interface de Saída e Representação do Campo de Visão
 
 O módulo de visão desenvolvido fornece como saída as coordenadas (x, y) dos objetos detectados no campo de visão da câmera. A definição de um sistema de coordenadas consistente é fundamental para a integração com sistemas de controle subsequentes.
 
@@ -266,6 +319,7 @@ O módulo de visão desenvolvido fornece como saída as coordenadas (x, y) dos o
 - Coordenadas em pixels ou normalizadas
 - Origem no centro da imagem ou canto superior esquerdo
 - Mapeamento para coordenadas do campo real (se necessário)
+- Para sistemas catadióptricos: conversão de coordenadas distorcidas para coordenadas cartesianas
 
 **Protocolo de Comunicação:**
 
@@ -275,7 +329,7 @@ A interface de comunicação entre o módulo de visão e o sistema de controle u
 OBJ,<x>,<y>,<confiança>,<largura>,<altura>\n
 ```
 
-### 4.6. RoboCup e Futebol de Robôs
+### 4.8. RoboCup e Futebol de Robôs
 
 A RoboCup é uma competição científica internacional estabelecida em 1997 com o objetivo audacioso: até 2050, um time de robôs humanoides autônomos deve ser capaz de vencer o time campeão da Copa do Mundo de Futebol da FIFA (KITANO et al., 1997).
 
@@ -290,7 +344,7 @@ A RoboCup é uma competição científica internacional estabelecida em 1997 com
 
 Este trabalho alinha-se com a filosofia de visão embarcada, buscando autonomia real e portabilidade do sistema.
 
-### 4.7. Trabalhos Relacionados
+### 4.9. Trabalhos Relacionados
 
 **MCUNet: Tiny Deep Learning on IoT Devices (LIN et al., 2020):**
 
@@ -329,7 +383,15 @@ Este trabalho caracteriza-se como:
 
 ### 5.2. Procedimentos Metodológicos
 
-O desenvolvimento deste trabalho será dividido em seis etapas principais, distribuídas ao longo de dois semestres letivos:
+O desenvolvimento deste trabalho seguirá um processo incremental para isolar variáveis e garantir a robustez do sistema. O projeto será executado em três fases principais, além das etapas de preparação e documentação:
+
+**Estrutura Geral em Três Fases:**
+
+- **Fase 1: Configuração e Algoritmo Base (Ambiente Controlado)**: Implementação e comparação de algoritmos de detecção (HSV e TinyML)
+- **Fase 2: Validação Incremental**: Testes progressivos com visão superior e visão catadióptrica
+- **Fase 3: Coleta de Métricas e Otimização**: Avaliação quantitativa e qualitativa do desempenho
+
+O desenvolvimento completo será dividido em seis etapas principais, distribuídas ao longo de dois semestres letivos:
 
 #### Etapa 1: Revisão Bibliográfica Sistemática (Meses 1-3)
 
@@ -387,45 +449,49 @@ O desenvolvimento deste trabalho será dividido em seis etapas principais, distr
 
 **Produto**: Dataset organizado e anotado.
 
-#### Etapa 4: Desenvolvimento e Otimização do Modelo de ML (Meses 6-8)
+#### Etapa 4: Desenvolvimento e Otimização do Modelo de ML e Implementação HSV (Meses 6-8) - **Fase 1**
 
-**Objetivo**: Treinar e otimizar modelo de detecção para o ESP32-S3.
+**Objetivo**: Implementar e comparar algoritmos de detecção baseados em cor (HSV) e Machine Learning (TensorFlow Lite Micro).
 
 **Atividades**:
 
-1. **Treinamento inicial** (Mês 6):
+1. **Implementação de segmentação HSV** (Mês 6, semanas 1-2):
+   - Configuração do firmware no ESP32-S3 para captura de imagens em resolução reduzida (QVGA ou QQVGA) para otimizar FPS
+   - Implementação de filtros de segmentação no espaço de cor HSV (Hue, Saturation, Value)
+   - Calibração de thresholds para detecção da cor laranja da bola
+   - Otimização para processamento em tempo real
+
+2. **Treinamento e otimização do modelo ML** (Mês 6-7):
    - Seleção de arquitetura base (MobileNetV2, EfficientNet-Lite, ou modelo custom)
    - Treinamento no Google Colab usando TensorFlow/PyTorch
    - Avaliação de desempenho no dataset de validação
-   - Iteração e ajuste de hiperparâmetros
-
-2. **Otimização do modelo** (Mês 7):
    - Aplicação de quantização (int8)
    - Pruning de pesos menos relevantes
-   - Redução de tamanho do modelo
-   - Conversão para TensorFlow Lite
+   - Conversão para TensorFlow Lite Micro
    - Verificação de acurácia pós-quantização
 
-3. **Testes em simulação** (Mês 8):
-   - Validação do modelo quantizado
-   - Medição de tamanho final (deve caber em < 400 KB)
-   - Estimativa de latência
-   - Ajustes finais
+3. **Comparação de abordagens** (Mês 7-8):
+   - Implementação de ambos os algoritmos no ESP32-S3
+   - Comparação direta quanto à latência e acurácia
+   - Análise de trade-offs entre as abordagens
+   - Seleção da abordagem mais adequada ou combinação híbrida
 
-**Ferramentas**: TensorFlow/PyTorch, TensorFlow Lite Converter, Google Colab
+**Ferramentas**: ESP-IDF/Arduino IDE, TensorFlow/PyTorch, TensorFlow Lite Micro, Google Colab
 
-**Métricas**: Acurácia, precisão, recall, F1-score, tamanho do modelo, latência estimada
+**Métricas**: Acurácia, precisão, recall, F1-score, latência, FPS, consumo de memória
 
-**Produto**: Modelo otimizado em formato .tflite
+**Produto**: Modelo otimizado em formato .tflite e algoritmo HSV implementado, com análise comparativa
 
-#### Etapa 5: Implementação do Módulo de Visão (Meses 9-10)
+#### Etapa 5: Implementação do Módulo de Visão e Validação Incremental (Meses 9-10) - **Fase 2**
 
-**Objetivo**: Implementar módulo completo de visão computacional no hardware embarcado com interface de saída padronizada.
+**Objetivo**: Implementar módulo completo de visão computacional no hardware embarcado e validar em etapas incrementais.
 
 **Atividades**:
 
-1. **Setup de hardware** (Mês 9, semana 1):
+1. **Setup de hardware e desenvolvimento do suporte físico** (Mês 9, semana 1):
    - Montagem do módulo (ESP32-S3 + câmera OV2640)
+   - Desenvolvimento do suporte físico para acoplamento da câmera OV2640 e do espelho convexo
+   - Garantia de alinhamento adequado do eixo óptico e estabilidade mecânica
    - Configuração de pinos e interfaces
    - Testes de captura de imagem
    - Verificação de funcionamento básico
@@ -435,12 +501,26 @@ O desenvolvimento deste trabalho será dividido em seis etapas principais, distr
    - Implementação do pipeline de visão:
      * Módulo de captura de imagem via interface DVP
      * Pré-processamento (redimensionamento, normalização, conversão de espaço de cor)
-     * Inferência usando TFLite Micro
+     * Inferência usando TFLite Micro ou processamento HSV
      * Pós-processamento (extração de bounding box, filtros de confiança)
    - Otimização de código para performance e memória
    - Debug e correções
 
-3. **Desenvolvimento da interface de saída** (Mês 10):
+3. **Validação Incremental - Visão Superior (Bird's Eye View)** (Mês 10, semanas 1-2):
+   - Testes com câmera apontada diretamente para baixo (sem espelho)
+   - Captura da bola em fundo contrastante
+   - Validação do algoritmo de detecção (HSV ou ML)
+   - Medição do tempo de resposta (latência) sem distorção óptica
+   - Coleta de métricas iniciais
+
+4. **Validação Incremental - Visão Catadióptrica (Com Espelho)** (Mês 10, semanas 3-4):
+   - Acoplamento da câmera ao espelho convexo
+   - Adaptação do algoritmo para identificar o "blob" (mancha) laranja na imagem refletida
+   - Desenvolvimento de algoritmo de mapeamento para converter a imagem distorcida do espelho em coordenadas cartesianas (X, Y) úteis para o robô
+   - Cálculo de ângulo e distância relativos ao centro da imagem (posição do robô)
+   - Validação do sistema completo
+
+5. **Desenvolvimento da interface de saída** (Mês 10):
    - Definição do sistema de coordenadas
    - Implementação do protocolo de comunicação serial/UART
    - Formato de mensagem padronizado
@@ -449,23 +529,34 @@ O desenvolvimento deste trabalho será dividido em seis etapas principais, distr
 
 **Ferramentas**: ESP-IDF ou Arduino IDE, PlatformIO, TensorFlow Lite Micro, Arduino IDE (para testes de interface)
 
-**Produto**: Módulo de visão computacional completo com interface de saída padronizada para coordenadas (x, y)
+**Produto**: Módulo de visão computacional completo com interface de saída padronizada para coordenadas (x, y), validado em ambas as configurações (superior e catadióptrica)
 
-#### Etapa 6: Testes, Avaliação e Documentação (Meses 11-12)
+#### Etapa 6: Testes, Avaliação e Documentação (Meses 11-12) - **Fase 3**
 
-**Objetivo**: Validar sistema e documentar resultados.
+**Objetivo**: Coletar métricas, otimizar e documentar resultados.
 
 **Atividades**:
 
-1. **Testes sistemáticos** (Mês 11, semanas 1-2):
+1. **Coleta de Métricas e Otimização** (Mês 11, semanas 1-2):
+   - Experimentos práticos medindo:
+     * **Latência (ms)**: Tempo entre captura e saída da coordenada
+     * **Taxa de Acerto (%)**: Eficácia da detecção em diferentes distâncias (0.5m a 2.0m)
+     * **FPS**: Fluidez do processamento de vídeo
+     * **Consumo de memória**: RAM e Flash utilizados
+     * **Consumo energético**: Corrente e potência
+   - Objetivo: encontrar o equilíbrio ideal entre resolução da imagem e velocidade de processamento
+   - Otimização de parâmetros baseada nos resultados
+
+2. **Testes sistemáticos** (Mês 11, semanas 2-3):
    - Experimentos controlados em laboratório
    - Coleta de dados quantitativos (métricas definidas)
-   - Testes em diferentes cenários
+   - Testes em diferentes cenários (iluminação, distância, oclusões)
    - Registro de vídeos e logs
 
-2. **Análise de resultados** (Mês 11, semanas 3-4):
+3. **Análise de resultados** (Mês 11, semanas 3-4):
    - Processamento estatístico dos dados
    - Geração de gráficos e tabelas
+   - Comparação entre abordagens HSV e ML
    - Comparação com trabalhos relacionados
    - Identificação de limitações
 
