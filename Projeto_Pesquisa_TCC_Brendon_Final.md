@@ -609,7 +609,7 @@ BROWNING, B. et al. **RoboCup Small Size League: Past, Present and Future**. In:
 
 CHEN, J.; RAN, X. **Deep Learning with Edge Computing: A Review**. Proceedings of the IEEE, v. 107, n. 8, p. 1655-1674, ago. 2019. Disponível em: <https://ieeexplore.ieee.org/document/8763885>. Acesso em: 15 nov. 2025.
 
-ESPRESSIF SYSTEMS. **ESP32-S3 Series Datasheet**. Version 1.0. Shanghai: Espressif Systems, 2021. Disponível em: <https://documentation.espressif.com/esp32-s3_datasheet_en.pdf>. Acesso em: 15 nov. 2025.
+ESPRESSIF SYSTEMS. **ESP32-S3 Series Datasheet**. Version 1.0. Shanghai: Espressif Systems, 2021. Disponível em: <https://www.espressif.com/sites/default/files/documentation/esp32-s3_datasheet_en.pdf>. Acesso em: 15 nov. 2025.
 
 KITANO, H. et al. **RoboCup: The Robot World Cup Initiative**. In: Proceedings of the First International Conference on Autonomous Agents (AGENTS'97), p. 340-347, Marina del Rey, CA, USA, 1997. ACM Press.
 

@@ -10,7 +10,7 @@
 
 ## 🚀 NOVO NO PROJETO? 
 
-**👉 Comece por aqui: [COMECE_AQUI.md](COMECE_AQUI.md)**
+**👉 Comece por aqui: [docs/guia/COMECE_AQUI.md](docs/guia/COMECE_AQUI.md)**
 
 Este documento contém todas as primeiras ações que você deve tomar para começar seu TCC da forma correta!
 
@@ -44,82 +44,61 @@ Desenvolver um sistema de visão computacional embarcado de baixo custo para rob
 
 ## 📚 Documentação do Projeto
 
-### 📖 Documentos Principais
+### 📄 **Documento Principal da Monografia**
 
-#### 1. **[sumula.md](sumula.md)**
-Súmula oficial do projeto de pesquisa com:
-- Introdução e contextualização
-- Fundamentação teórica inicial
-- Descrição do problema de pesquisa
+#### **[Projeto_Pesquisa_TCC_Brendon_Final.md](Projeto_Pesquisa_TCC_Brendon_Final.md)** 📖
+**Este é o arquivo principal da monografia do TCC**, contendo:
+- Introdução e justificativa
+- Objetivos gerais e específicos
+- Metodologia completa
+- Referencial teórico
+- Cronograma
+- Referências bibliográficas
 
-#### 2. **[guia_pesquisa_tcc.md](guia_pesquisa_tcc.md)** ⭐
-Guia completo de pesquisa contendo:
-- Áreas principais de estudo (TinyML, Edge AI, Visão Computacional)
-- Recursos recomendados
-- Metodologia sugerida
-- Estrutura do TCC
-- Checklist de ações
+---
 
-#### 3. **[papers_recomendados.md](papers_recomendados.md)**
-Lista curada de papers e referências:
-- Papers fundamentais sobre TinyML
-- Visão computacional embarcada
-- RoboCup e futebol de robôs
-- ESP32 e hardware
-- Tutoriais e cursos online
+### 📂 **Estrutura Organizada do Projeto**
 
-#### 4. **[cronograma_tcc.md](cronograma_tcc.md)** 📅
-Cronograma detalhado mês a mês:
-- TCC I (Janeiro-Junho 2025)
-- TCC II (Julho-Dezembro 2025)
-- Marcos críticos
-- Checklist semanal
+O projeto está organizado em pastas para facilitar a navegação:
 
-#### 5. **[conceitos_tecnicos_explicados.md](conceitos_tecnicos_explicados.md)** 💡
-Explicações didáticas dos conceitos técnicos:
-- TinyML e Quantização
-- Edge AI vs Cloud AI
-- Visão Computacional
-- ESP32-S3
-- RoboCup
-- Métricas de avaliação
+#### 📁 **docs/guia/** - Guias e Orientações
+- **[COMECE_AQUI.md](docs/guia/COMECE_AQUI.md)** ⭐ - **Comece por aqui!** Primeiros passos do TCC
+- **[guia_pesquisa_tcc.md](docs/guia/guia_pesquisa_tcc.md)** - Guia completo de pesquisa
+- **[cronograma_tcc.md](docs/guia/cronograma_tcc.md)** 📅 - Cronograma detalhado mês a mês
+- **[conceitos_tecnicos_explicados.md](docs/guia/conceitos_tecnicos_explicados.md)** 💡 - Explicações didáticas dos conceitos
 
-#### 6. **[analise_arquiteturas_robocup/](analise_arquiteturas_robocup/)** 🏗️ ⭐ **NOVO!**
-Análises detalhadas de arquiteturas de robôs de competições RoboCup:
-- **6 análises completas** de times reais de competição
-- **Comparação de arquiteturas** (distribuída vs centralizada)
-- **Análise de viabilidade** do ESP32 como alternativa de baixo custo
-- **Prova real** de uso de ESP32 em robótica (Munako Aegis)
-- **Recomendações específicas** para seu TCC
-- **Análise de custos** detalhada (economia de 80-90%)
+#### 📁 **docs/analises/** - Análises Técnicas
+- **[analise_arquiteturas_robocup/](docs/analises/analise_arquiteturas_robocup/)** 🏗️ ⭐
+  - 6 análises completas de times de competição RoboCup
+  - Comparação de arquiteturas (distribuída vs centralizada)
+  - Prova real de uso de ESP32 (Munako Aegis)
+  - Análise de custos (economia de 80-90%)
+- **[analise_viabilidade_haar_cascade_esp32s3.md](docs/analises/analise_viabilidade_haar_cascade_esp32s3.md)** 🔍
+  - Comparação: Detecção de cores vs Haar Cascade
+  - Benchmarks de performance
+  - Recomendações técnicas
+- **[analise_pytorch_vs_tensorflow_esp32.md](docs/analises/analise_pytorch_vs_tensorflow_esp32.md)** 🤖
+  - Comparação de frameworks de ML
+  - Recomendação: TensorFlow Lite Micro
+- **[analise_zg24robotics.md](docs/analises/analise_zg24robotics.md)** - Análise adicional
 
-**Arquivos principais**:
-- `README.md` - Índice completo e resumo executivo
-- `05_analise_munako_aegis.md` - ⭐ **MUITO RELEVANTE**: Prova real de ESP32
-- `03_analise_arquitetura_distribuida.md` - Análise de arquiteturas
-- Outras 4 análises de times de competição
+#### 📁 **docs/referencias/** - Documentos de Referência
+- **[papers_recomendados.md](docs/referencias/papers_recomendados.md)** - Lista curada de papers
+- **[sumula.md](docs/referencias/sumula.md)** - Súmula oficial do projeto
+- **[PONTOS_DE_MELHORIA_TCC.md](docs/referencias/PONTOS_DE_MELHORIA_TCC.md)** - Análise de melhorias
+- **[template_projeto_pesquisa_IFBA.md](docs/referencias/template_projeto_pesquisa_IFBA.md)** - Template
+- Versões anteriores do projeto (para referência)
 
-#### 7. **[analise_viabilidade_haar_cascade_esp32s3.md](analise_viabilidade_haar_cascade_esp32s3.md)** 🔍 ⭐ **NOVO!**
-Análise crítica de viabilidade técnica:
-- **Comparação**: Detecção de cores vs Haar Cascade no ESP32-S3
-- **Análise do artigo**: "Color Detection & Tracking with ESP32-CAM & OpenCV"
-- **Benchmarks de performance**: Latência, consumo de memória, FPS
-- **Recomendação técnica**: Detecção de cores otimizada é mais eficiente
-- **Código de exemplo**: Implementação otimizada para ESP32-S3
-- **Trade-offs detalhados**: Quando usar cada abordagem
+#### 📁 **docs/formais/** - Documentos Formais
+- Termo de Aceite do Orientador (PDF)
+- Súmula oficial (PDF)
+- Modelo de Projeto de Pesquisa (DOCX)
 
-**Conclusão principal**: Para detecção de bola laranja, **detecção de cores é 5-10x mais rápida** que Haar Cascade, com consumo 4-8x menor de memória.
-
-#### 8. **[analise_pytorch_vs_tensorflow_esp32.md](analise_pytorch_vs_tensorflow_esp32.md)** 🤖 ⭐ **NOVO!**
-Análise comparativa de frameworks de ML:
-- **Comparação**: PyTorch vs TensorFlow Lite Micro para ESP32-S3
-- **Viabilidade técnica**: Suporte nativo, otimizações, ecossistema
-- **Rota alternativa**: ESP-DL com conversão PyTorch → ONNX → ESP-DL
-- **Recomendação técnica**: TensorFlow Lite Micro é a escolha clara
-- **Workflow recomendado**: Treinar → Converter → Deploy
-- **Alternativas**: Edge Impulse como plataforma integrada
-
-**Conclusão principal**: **TensorFlow Lite Micro vence em todos os aspectos** - suporte oficial, facilidade, documentação, ecossistema e performance. PyTorch não tem suporte nativo para microcontroladores.
+#### 📁 **referencias para estudo/** - Materiais de Estudo
+- Posters de times RoboCup
+- PDFs de referência (TinyML, etc.)
+- Imagens e diagramas
+- Arquivos RAR com materiais adicionais
 
 ---
 
@@ -171,23 +150,38 @@ Competição mundial de futebol de robôs, servindo como benchmark para pesquisa
 
 ```
 TCC/
-├── README.md                           # Este arquivo
-├── sumula.md                           # Súmula do projeto
-├── guia_pesquisa_tcc.md               # Guia de pesquisa completo
-├── papers_recomendados.md             # Lista de papers
-├── cronograma_tcc.md                  # Cronograma detalhado
-├── conceitos_tecnicos_explicados.md   # Conceitos técnicos
-├── docs/                              # Documentação adicional
-│   ├── revisao_bibliografica/        # Fichamentos de papers
-│   ├── relatorios/                   # Relatórios de progresso
-│   └── apresentacoes/                # Slides
-├── code/                             # Código do projeto
-│   ├── esp32/                        # Código do ESP32
-│   ├── training/                     # Scripts de treinamento
-│   └── tests/                        # Testes
-├── datasets/                         # Datasets de imagens
-├── models/                           # Modelos treinados
-└── hardware/                         # Esquemáticos, CAD
+├── README.md                                    # Este arquivo
+├── Projeto_Pesquisa_TCC_Brendon_Final.md        # 📖 MONOGRAFIA PRINCIPAL
+│
+├── docs/                                        # Documentação organizada
+│   ├── guia/                                   # Guias e orientações
+│   │   ├── COMECE_AQUI.md                     # ⭐ Comece por aqui!
+│   │   ├── guia_pesquisa_tcc.md               # Guia completo de pesquisa
+│   │   ├── cronograma_tcc.md                  # Cronograma detalhado
+│   │   └── conceitos_tecnicos_explicados.md   # Conceitos técnicos
+│   │
+│   ├── analises/                               # Análises técnicas
+│   │   ├── analise_arquiteturas_robocup/      # Análises de arquiteturas
+│   │   ├── analise_viabilidade_haar_cascade_esp32s3.md
+│   │   ├── analise_pytorch_vs_tensorflow_esp32.md
+│   │   └── analise_zg24robotics.md
+│   │
+│   ├── referencias/                            # Documentos de referência
+│   │   ├── papers_recomendados.md             # Lista de papers
+│   │   ├── sumula.md                          # Súmula oficial
+│   │   ├── PONTOS_DE_MELHORIA_TCC.md          # Análise de melhorias
+│   │   ├── template_projeto_pesquisa_IFBA.md  # Template
+│   │   └── [versões anteriores do projeto]
+│   │
+│   └── formais/                                # Documentos formais
+│       ├── Termo de Aceite (PDF)
+│       ├── Súmula oficial (PDF)
+│       └── Modelo de Projeto (DOCX)
+│
+└── referencias para estudo/                    # Materiais de estudo
+    ├── Posters RoboCup (PDFs)
+    ├── Papers e livros (PDFs)
+    └── Imagens e diagramas
 ```
 
 ---
@@ -201,17 +195,19 @@ TCC/
 4. ✅ Começar busca por papers fundamentais
 
 ### Próximos Passos
-Siga o [cronograma_tcc.md](cronograma_tcc.md) para as próximas etapas!
+Siga o [docs/guia/cronograma_tcc.md](docs/guia/cronograma_tcc.md) para as próximas etapas!
 
 ---
 
 ## 📖 Leitura Recomendada (Ordem)
 
-1. **[conceitos_tecnicos_explicados.md](conceitos_tecnicos_explicados.md)** - Para entender os conceitos básicos
-2. **[guia_pesquisa_tcc.md](guia_pesquisa_tcc.md)** - Para saber o que pesquisar
-3. **[analise_arquiteturas_robocup/README.md](analise_arquiteturas_robocup/README.md)** ⭐ **NOVO!** - Para entender arquiteturas e validar escolha do ESP32
-4. **[papers_recomendados.md](papers_recomendados.md)** - Para encontrar referências
-5. **[cronograma_tcc.md](cronograma_tcc.md)** - Para se organizar no tempo
+1. **[docs/guia/COMECE_AQUI.md](docs/guia/COMECE_AQUI.md)** ⭐ - **Comece por aqui!** Primeiros passos
+2. **[docs/guia/conceitos_tecnicos_explicados.md](docs/guia/conceitos_tecnicos_explicados.md)** - Para entender os conceitos básicos
+3. **[docs/guia/guia_pesquisa_tcc.md](docs/guia/guia_pesquisa_tcc.md)** - Para saber o que pesquisar
+4. **[docs/analises/analise_arquiteturas_robocup/README.md](docs/analises/analise_arquiteturas_robocup/README.md)** ⭐ - Para entender arquiteturas e validar escolha do ESP32
+5. **[docs/referencias/papers_recomendados.md](docs/referencias/papers_recomendados.md)** - Para encontrar referências
+6. **[docs/guia/cronograma_tcc.md](docs/guia/cronograma_tcc.md)** - Para se organizar no tempo
+7. **[Projeto_Pesquisa_TCC_Brendon_Final.md](Projeto_Pesquisa_TCC_Brendon_Final.md)** 📖 - Monografia principal
 
 ---
 
@@ -269,8 +265,9 @@ Siga o [cronograma_tcc.md](cronograma_tcc.md) para as próximas etapas!
 - **Novembro 2024**: Criação da estrutura inicial do projeto
 - **Novembro 2024**: Adição de 6 análises detalhadas de arquiteturas RoboCup
 - **Janeiro 2025**: Início do TCC I
-- **Junho 2025**: Conclusão do TCC I
-- **Dezembro 2025**: Defesa do TCC II
+- **Janeiro 2025**: Reorganização da estrutura em pastas para melhor organização
+- **Junho 2025**: Conclusão do TCC I (previsto)
+- **Dezembro 2025**: Defesa do TCC II (previsto)
 
 ### Status Atual
 🚧 **Em Planejamento** - Fase de organização e revisão bibliográfica inicial
