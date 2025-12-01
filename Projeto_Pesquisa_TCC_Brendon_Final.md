@@ -601,15 +601,15 @@ Conforme tabela detalhada na Seção 5.3 (Materiais e Recursos)
 
 ## 8. REFERÊNCIAS
 
-BANBURY, C. R. et al. **MicroNets: Neural Network Architectures for Deploying TinyML Applications on Commodity Microcontrollers**. In: Proceedings of Machine Learning and Systems (MLSys), v. 3, p. 517-532, 2021.
+BANBURY, C. R. et al. **MicroNets: Neural Network Architectures for Deploying TinyML Applications on Commodity Microcontrollers**. In: Proceedings of Machine Learning and Systems (MLSys), v. 3, p. 517-532, 2021. Disponível em: <https://arxiv.org/pdf/2010.11267>. Acesso em: 15 nov. 2025.
 
-BONARDI, F. et al. **Embedded Vision System for Real-Time Object Tracking Using an Asynchronous Transient Vision Sensor**. In: International Conference on Computer Vision Systems (ICVS), p. 125-135, 2015.
+BONARDI, F. et al. **Embedded Vision System for Real-Time Object Tracking Using an Asynchronous Transient Vision Sensor**. In: International Conference on Computer Vision Systems (ICVS), p. 125-135, 2015. Disponível em: <http://www.belbachir.info/PDF/dsp2006.pdf>. Acesso em: 15 nov. 2025.
 
 BROWNING, B. et al. **RoboCup Small Size League: Past, Present and Future**. In: RoboCup 2019: Robot World Cup XXIII. Springer, Cham, p. 611-623, 2019.
 
-CHEN, J.; RAN, X. **Deep Learning with Edge Computing: A Review**. Proceedings of the IEEE, v. 107, n. 8, p. 1655-1674, ago. 2019.
+CHEN, J.; RAN, X. **Deep Learning with Edge Computing: A Review**. Proceedings of the IEEE, v. 107, n. 8, p. 1655-1674, ago. 2019. Disponível em: <https://ieeexplore.ieee.org/document/8763885>. Acesso em: 15 nov. 2025.
 
-ESPRESSIF SYSTEMS. **ESP32-S3 Series Datasheet**. Version 1.0. Shanghai: Espressif Systems, 2021. Disponível em: <https://www.espressif.com/sites/default/files/documentation/esp32-s3_datasheet_en.pdf>. Acesso em: 15 nov. 2024.
+ESPRESSIF SYSTEMS. **ESP32-S3 Series Datasheet**. Version 1.0. Shanghai: Espressif Systems, 2021. Disponível em: <https://documentation.espressif.com/esp32-s3_datasheet_en.pdf>. Acesso em: 15 nov. 2025.
 
 KITANO, H. et al. **RoboCup: The Robot World Cup Initiative**. In: Proceedings of the First International Conference on Autonomous Agents (AGENTS'97), p. 340-347, Marina del Rey, CA, USA, 1997. ACM Press.
 
